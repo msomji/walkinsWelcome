@@ -1,0 +1,16 @@
+{
+  "name": "walkins-welcome-rest-api",
+  "version": "1.0.0",
+  "description": "Serverless REST API with MongoDB",
+  "main": "handler.js",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "mongoose": "^5.9.10",
+    "validator": "^13.0.0"
+  },
+  "author": "Quentin Homareau <quentin.homareau@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-offline": "^6.1.4"
+  }
+}

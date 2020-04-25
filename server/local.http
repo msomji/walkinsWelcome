@@ -1,0 +1,44 @@
+###
+GET  http://localhost:3000/dev/patients/room/1  
+
+###
+GET http://localhost:3000/dev/patients/5ea48a83e7179a2a4ff7e709
+
+###
+POST http://localhost:3000/dev/patients
+content-type: application/json
+
+{
+    "name": "deleteme",
+    "phoneNumber":"937-716-6784",
+    "roomId":"1asd123",
+    "description": "trial"
+}
+
+###
+DELETE http://localhost:3000/dev/patients/5ea49f5e22d873f8aedf9b81 
+
+
+###
+POST http://localhost:3000/dev/rooms
+content-type: application/json
+
+{
+    "hostId": "deleteme",
+    "phoneNumber":"937-716-6784",
+    "speciality":"speciality",
+    "location":"location",
+    "description": "trial",
+    "languages": ["eng", "fr"]
+}
+
+###
+GET http://localhost:3000/dev/rooms/5ea4a7d3fd342efa4e65050f
+
+###
+GET http://localhost:3000/dev/rooms/language/eng
+###
+GET http://localhost:3000/dev/rooms/host/deleteme
+
+###
+DELETE http://localhost:3000/dev/rooms/5ea4aa920d2e87fae4613446
