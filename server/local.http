@@ -1,10 +1,10 @@
-###
+### patients by room id
 GET  http://localhost:3000/dev/patients/room/1  
 
-###
+### patient by patientId
 GET http://localhost:3000/dev/patients/5ea48a83e7179a2a4ff7e709
 
-###
+### create patient
 POST http://localhost:3000/dev/patients
 content-type: application/json
 
@@ -15,11 +15,11 @@ content-type: application/json
     "description": "trial"
 }
 
-###
+### delete patient by _id
 DELETE http://localhost:3000/dev/patients/5ea49f5e22d873f8aedf9b81 
 
 
-###
+### create room
 POST http://localhost:3000/dev/rooms
 content-type: application/json
 
@@ -32,13 +32,14 @@ content-type: application/json
     "languages": ["eng", "fr"]
 }
 
-###
+### room by _id
 GET http://localhost:3000/dev/rooms/5ea4a7d3fd342efa4e65050f
 
-###
+### room by language
 GET http://localhost:3000/dev/rooms/language/eng
-###
+
+### room by host id
 GET http://localhost:3000/dev/rooms/host/deleteme
 
-###
+### delete room
 DELETE http://localhost:3000/dev/rooms/5ea4aa920d2e87fae4613446

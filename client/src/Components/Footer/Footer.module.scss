@@ -1,0 +1,12 @@
+@import "../../variables.scss";
+
+footer.footer {
+  height: 110px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  a {
+    margin: 10px;
+  }
+}

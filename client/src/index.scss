@@ -1,0 +1,16 @@
+@import './variables.scss';
+@import './bulmaConfig.scss';
+
+
+body {
+  margin: 0 auto;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $primary-background;
+  font-family: Montserrat, sans-serif;
+}
+
+code {
+  font-family: Montserrat, sans-serif;
+}

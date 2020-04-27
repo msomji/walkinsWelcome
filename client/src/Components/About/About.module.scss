@@ -1,0 +1,11 @@
+.about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h1 {
+        padding: 2rem 0 ;
+    }
+    h2 {
+        padding: 0 1rem 2.4rem 1rem;
+    }
+}
