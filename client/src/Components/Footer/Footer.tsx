@@ -7,6 +7,9 @@ const Footer = () => {
   return (
     <footer className={`${styles.footer}`}>
     <img src={centerDivide} alt="centerDivider"/>
+  <div>
+  <h1 className="is-size-4 has-text-weight-semibold">© {new Date().getFullYear()} WalkinsWelcome</h1>
+  </div>
     </footer>
   )
 }

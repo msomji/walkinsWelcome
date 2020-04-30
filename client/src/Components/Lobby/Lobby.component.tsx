@@ -48,6 +48,15 @@ const Lobby: React.FC<LobbyProps> = ({ user, roomState }) => {
     sethideCreateRoomForm(!hideCreateRoomForm)
 
   }
+  const callNextPatient = (roomId?:string, hostName?: string) => (e:any) => {
+    e.preventDefault();
+    if(roomId !== undefined && hostName !== undefined) {
+      // get auth token with room name and host name
+      //route to video page
+      // generate auth token for patient
+      // sent patient text with link + auth param
+    }
+  }
   const onGetInLine = (roomId?:string) => (e:any) => {
     e.preventDefault();
     if(roomId !== undefined) {
@@ -123,6 +132,7 @@ const Lobby: React.FC<LobbyProps> = ({ user, roomState }) => {
       speciality={room.speciality || "General Medicine"}
       location={room.location || "USA"}
       patientsInLine={3}
+      callNextPatient={callNextPatient(room._id, room.hostName)}
       onGetInLine={onGetInLine(room._id)}
       deleteRoom={onDeleteRoom(room.hostId, room._id)} />)
 

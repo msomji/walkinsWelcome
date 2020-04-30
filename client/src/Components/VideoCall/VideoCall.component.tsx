@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { connect, createLocalVideoTrack, createLocalTracks } from "twilio-video";
+import styles from './VideoCall.module.scss';
 
+export interface VideoCallProps {
+    token: string
+}
 
-const VideoCall: React.FC = () => {
+const VideoCall: React.FC<VideoCallProps> = ({token}) => {
 
     const connector = (token: string) => {
         createLocalTracks({
             audio: true,
-            video: { width: 640 }
+            // video: { width: 640 }
         }).then(localTracks => {
             return connect(token, {
                 name: 'my-room-name',
@@ -53,29 +57,13 @@ const VideoCall: React.FC = () => {
             });
         });
     }
-    const [token, setToken] = useState('');
-
-    const handleChange = (key: string) => (event: any) => {
-        console.log(event.target.value)
-        setToken(event.target.value)
-  
-      }
-
-    const onCreate = (e:any) => {
-        e.preventDefault();
+    useEffect(() => {
         connector(token);
-    }
-
-
+    }, [token])
     return (
-        <div className="videoCall">
-            <form onSubmit={onCreate}>
-            <label htmlFor="token">token</label>
-                <input value={token} onChange={handleChange("description")} type="text" id="description" name="description"/>
-                
-            </form>
-            <div id="local-media"></div>
-            <div id="remote-media-div"></div>
+        <div className={`${styles.videoCall}`}>
+            <div className={`${styles.local}`} id="local-media"></div>
+            <div className={`${styles.remote}`} id="remote-media-div"></div>
         </div>
     )
 }

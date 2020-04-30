@@ -1,0 +1,12 @@
+@import '../../variables.scss';
+.videoCall {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.local {
+    width: 40rem;
+}
+.remote {
+    width: 40rem;
+}
