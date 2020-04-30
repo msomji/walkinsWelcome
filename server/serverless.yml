@@ -74,7 +74,8 @@ functions:
             parameters:
               querystrings:
                 identity: true
-          # cors: true
+          cors:
+            origin: '*'
   sentWhatsAppMessage:
     handler: twlioHandler.sendTwilioWhatsAppText
     events:
@@ -85,35 +86,40 @@ functions:
             parameters:
               querystrings:
                 identity: true
-          # cors: true
+          cors:
+            origin: '*'
   patientById:
     handler: patientHandler.patientsById
     events:
       - http:
           path: patients/{id}
           method: get
-          # cors: true
+          cors:
+            origin: '*'
   filterPatientByRoomId:
     handler: patientHandler.patientsByRoomId
     events:
       - http:
           path: patients/room/{id}
           method: get
-          # cors: true
+          cors:
+            origin: '*'
   createPatient:
     handler: patientHandler.createPatient
     events:
       - http:
           path: patients
           method: post
-          # cors: true
+          cors:
+            origin: '*'
   deletePatient:
     handler: patientHandler.deletePatient
     events:
       - http:
           path: patients/{id}
           method: delete
-          # cors: true
+          cors:
+            origin: '*'
 ##
   allRooms:
     handler: roomHandler.allRooms
@@ -121,42 +127,48 @@ functions:
       - http:
           path: rooms
           method: get
-          # cors: true
+          cors:
+            origin: '*'
   roomById:
     handler: roomHandler.roomById
     events:
       - http:
           path: rooms/{id}
           method: get
-          # cors: true
+          cors:
+            origin: '*'
   createRoom:
     handler: roomHandler.createRoom
     events:
       - http:
           path: rooms
           method: post
-          # cors: true
+          cors:
+            origin: '*'
   filterRoomByLanguage:
     handler: roomHandler.roomBylanguage
     events:
       - http:
           path: rooms/language/{language}
           method: get
-          # cors: true
+          cors:
+            origin: '*'
   filterRoomByHost:
     handler: roomHandler.roomByHost
     events:
       - http:
           path: rooms/host/{id}
           method: get
-          # cors: true
+          cors:
+            origin: '*'
   deleteRoom:
     handler: roomHandler.deleteRoom
     events:
       - http:
           path: rooms/{id}
           method: delete
-          # cors: true
+          cors:
+            origin: '*'
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
