@@ -20,10 +20,9 @@ const VideoCall: React.FC<VideoCallProps> = ({token}) => {
             console.log(`Connected to the Room as LocalParticipant "${localParticipant}"`);
             
             // Log any Participants already connected to the Room
-            room.participants.forEach(participant => {
-              console.log(`Participant "${participant}" is connected to the Room`);
-              room.participants.forEach(participant => {
-                console.log(`Participant "${participant}" is connected to the Room`);
+            room.on('participantConnected', participant => {
+                console.log(`Participant "${participant.identity}" connected`);
+              
                 participant.tracks.forEach((publication:any) => {
                   if (publication.isSubscribed) {
                     const track = publication.track;
@@ -35,6 +34,11 @@ const VideoCall: React.FC<VideoCallProps> = ({token}) => {
                   document.getElementById('remote-media-div')!.appendChild(track.attach());
                 });
               });
+            
+            // Log Participants as they disconnect from the Room
+            room.once('participantDisconnected', participant => {
+              console.log(`Participant "${participant}" has disconnected from the Room`);
+            // });
             });
             
             // Log new Participants as they connect to the Room
