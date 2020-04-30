@@ -20,25 +20,18 @@ const VideoCall: React.FC<VideoCallProps> = ({token}) => {
             console.log(`Connected to the Room as LocalParticipant "${localParticipant}"`);
             
             // Log any Participants already connected to the Room
-            room.on('participantConnected', participant => {
-                console.log(`Participant "${participant.identity}" connected`);
-              
-                participant.tracks.forEach((publication:any) => {
-                  if (publication.isSubscribed) {
-                    const track = publication.track;
-                    document.getElementById('remote-media-div')!.appendChild(track.attach());
-                  }
-                });
-              
-                participant.on('trackSubscribed', (track:any) => {
+            room.participants.forEach(participant => {
+              console.log(`Participant "${participant}" is connected to the Room`);
+              participant.tracks.forEach((publication:any) => {
+                if (publication.isSubscribed) {
+                  const track = publication.track;
                   document.getElementById('remote-media-div')!.appendChild(track.attach());
-                });
+                }
               });
             
-            // Log Participants as they disconnect from the Room
-            room.once('participantDisconnected', participant => {
-              console.log(`Participant "${participant}" has disconnected from the Room`);
-            // });
+              participant.on('trackSubscribed', (track:any) => {
+                document.getElementById('remote-media-div')!.appendChild(track.attach());
+              });
             });
             
             // Log new Participants as they connect to the Room
@@ -61,9 +54,6 @@ const VideoCall: React.FC<VideoCallProps> = ({token}) => {
             room.once('participantDisconnected', participant => {
               console.log(`Participant "${participant}" has disconnected from the Room`);
             });
-
-
-
 
 
             room.on('participantConnected', participant => {
