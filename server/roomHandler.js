@@ -16,6 +16,14 @@ const createErrorResponse = (statusCode, message) => ({
   body: message || 'Incorrect id',
 });
 
+module.exports.allRooms = (event, context, callback) => {
+  dbConnectAndExecute(mongoString, () => (
+    RoomModel 
+      .find({})
+      .then(patient => callback(null, { statusCode: 200, body: JSON.stringify(patient) }))
+      .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
+  ));
+};
 module.exports.roomById = (event, context, callback) => {
   if (!validator.isAlphanumeric(event.pathParameters.id)) {
     callback(null, createErrorResponse(400, 'Incorrect id'));
@@ -31,12 +39,11 @@ module.exports.roomById = (event, context, callback) => {
 };
 
 module.exports.createRoom = (event, context, callback) => {
-    console.log(JSON.parse(event.body))
-    const {hostId, phoneNumber, description, spciality,location, languages} = JSON.parse(event.body);
-    const room = new RoomModel({hostId, phoneNumber, description, spciality,location, languages});
+  const {hostId, phoneNumber, description, speciality,location, languages, imageUrl, hostName} = JSON.parse(event.body);
+  const room = new RoomModel({hostId, phoneNumber, description, speciality,location, languages, imageUrl, hostName});
   
     if (room.validateSync()) {
-      callback(null, createErrorResponse(400, 'Incorrect room data'));
+      callback(null, createErrorResponse(400, `Incorrect room data ${room}`));
       return;
     }
     dbConnectAndExecute(mongoString, () => (

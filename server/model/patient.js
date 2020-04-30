@@ -7,7 +7,7 @@ const PatientModel = mongoose.model('Patient', {
     required: true,
     validate: {
       validator(name) {
-        return validator.isAlpha(name);
+        return name.split(' ').every(s => validator.isAlpha(s));
       },
     },
   },
@@ -32,6 +32,10 @@ const PatientModel = mongoose.model('Patient', {
   description: {
     type: String,
     // required: true,
+  },
+  createdTime: {
+    type: Number,
+    required: true,
   },
 }, "Patients");
 

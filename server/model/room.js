@@ -11,6 +11,24 @@ const RoomModel = mongoose.model('Room', {
       },
     },
   },
+  hostName: {
+    type: String,
+    required: true,
+    validate: {
+      validator(hostName) {
+        return hostName.split(' ').every(s => validator.isAlpha(s));
+      },
+    },
+  },
+  imageUrl: {
+    type: String,
+    required: true,
+    validate: {
+      validator(url) {
+        return validator.isURL(url);
+      },
+    },
+  },
   phoneNumber: {
     type: String,
     required: true,

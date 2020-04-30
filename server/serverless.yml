@@ -48,6 +48,11 @@ provider:
   environment:
     DB_USER: ${file(./config.json):DB_USER}
     DB_PASSWORD: ${file(./config.json):DB_PASSWORD}
+    TWILIO_ACCOUNT_SID: ${file(./config.json):TWILIO_ACCOUNT_SID}
+    TWILIO_VIDEO_API_KEY : ${file(./config.json):TWILIO_VIDEO_API_KEY}
+    TWILIO_VIDEO_API_SECRET: ${file(./config.json):TWILIO_VIDEO_API_SECRET}
+    TWILIO_WHATSAPP_API_AUTH_TOKEN: ${file(./config.json):TWILIO_WHATSAPP_API_AUTH_TOKEN}
+    
 
 # you can add packaging information here
 #package:
@@ -59,6 +64,28 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
+  getTwilioVideoToken:
+    handler: twlioHandler.getTwilioVideoToken
+    events:
+      - http:
+          path: video-token
+          method: get
+          request:
+            parameters:
+              querystrings:
+                identity: true
+          # cors: true
+  sentWhatsAppMessage:
+    handler: twlioHandler.sendTwilioWhatsAppText
+    events:
+      - http:
+          path: whatsapp
+          method: get
+          request:
+            parameters:
+              querystrings:
+                identity: true
+          # cors: true
   patientById:
     handler: patientHandler.patientsById
     events:
@@ -88,6 +115,13 @@ functions:
           method: delete
           # cors: true
 ##
+  allRooms:
+    handler: roomHandler.allRooms
+    events:
+      - http:
+          path: rooms
+          method: get
+          # cors: true
   roomById:
     handler: roomHandler.roomById
     events:

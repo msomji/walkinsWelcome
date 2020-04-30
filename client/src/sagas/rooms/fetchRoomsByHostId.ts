@@ -3,12 +3,12 @@ import { fetchRoomByHostId } from "../../Services/RoomService";
 import { put, takeLatest } from "redux-saga/effects";
 
 function* workerSaga(action: FetchRoomsByHostId) {
-    try {
-        const rooms = yield fetchRoomByHostId(action.payload)
-        yield put(fetchRoomsByHostIdSuccess(rooms))
-    } catch(e) {
-        yield put(fetchRoomsByHostIdFailed(e))
-    }
+    // try {
+    //     const rooms = yield fetchRoomByHostId(action.payload)
+    //     yield put(fetchRoomsByHostIdSuccess(rooms))
+    // } catch(e) {
+    //     yield put(fetchRoomsByHostIdFailed(e))
+    // }
 }
 
 export function* fetchRoomByHostIdSaga() {

@@ -39,15 +39,17 @@ module.exports.patientsByRoomId = (event, context, callback) => {
   dbConnectAndExecute(mongoString, () => (
     PatientModel 
       .find({ roomId: event.pathParameters.id })
+      .sort({ createdTime: 'asc' })
       .then(patients => callback(null, { statusCode: 200, body: JSON.stringify(patients) }))
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ));
 };
 
-
 module.exports.createPatient = (event, context, callback) => {
   const {name, phoneNumber, roomId, description} = JSON.parse(event.body);
-  const patient = new PatientModel({name, phoneNumber, roomId, description});
+  console.log('creating patient')
+  console.log(JSON.parse(event.body))
+  const patient = new PatientModel({name, phoneNumber, roomId, description, createdTime: Date.now()});
 
   if (patient.validateSync()) {
     callback(null, createErrorResponse(400, 'Incorrect Patient data'));

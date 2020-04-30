@@ -4,8 +4,14 @@ import { put, takeLatest } from "redux-saga/effects";
 
 function* workerSaga(action: CreateRoom) {
     try {
-        const roomId = yield createRoom(action.payload)
-        yield put(createRoomSuccess(action.payload))
+        const roomIdPayLoad =yield createRoom(action.payload)
+        console.log(roomIdPayLoad)
+        const newRoom = {
+            ...action.payload,
+            _id: roomIdPayLoad
+        }
+        console.log(newRoom)
+        yield put(createRoomSuccess(newRoom))
     } catch(e) {
         yield put(createRoomFailed(e))
     }

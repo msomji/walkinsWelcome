@@ -9,8 +9,6 @@ import { userLoginSuccess, userLogoutSuccess } from '../../store/user/UserAction
 import { UserState, UserObject } from '../../store/user/userReducer'
 
 
-
-
 export const Header: React.FC<UserState> = ({ isLoggedIn, user}) => {
   const dispatch = useDispatch()
 
@@ -51,7 +49,7 @@ export const Header: React.FC<UserState> = ({ isLoggedIn, user}) => {
     clientId={`${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}
     onLogoutSuccess={onLogoutSucess}
     render={renderProps => (
-      <li className="has-text-weight-semibold" onClick={renderProps.onClick}><img id="user-image" src={user?.imageUrl} alt="user image" /> Hello, {user?.name}</li>
+      <li className="has-text-weight-semibold" onClick={renderProps.onClick}><img id="user-image" src={user?.imageUrl} alt="user" /> Hello, {user?.name}</li>
     )}
   >
   </GoogleLogout>
@@ -59,7 +57,7 @@ export const Header: React.FC<UserState> = ({ isLoggedIn, user}) => {
           <GoogleLogin
             clientId={`${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}
             render={renderProps => (
-              <li className="has-text-weight-semibold" onClick={renderProps.onClick}><img id="google-logo" src={googleIcon} alt="google Login icong" />Login</li>
+              <li className="has-text-weight-semibold" onClick={renderProps.onClick}><img id="google-logo" src={googleIcon} alt="google Login icon" />Login</li>
             )}
             onSuccess={onLoginSucess}
             onFailure={onLoginFail}
