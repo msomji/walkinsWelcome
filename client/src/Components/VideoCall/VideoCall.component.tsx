@@ -9,55 +9,65 @@ export interface VideoCallProps {
 const VideoCall: React.FC<VideoCallProps> = ({token}) => {
 
     const connector = (token: string) => {
-        createLocalTracks({
-            audio: true,
-            // video: { width: 640 }
-        }).then(localTracks => {
-            return connect(token, {
-                name: 'my-room-name',
-                tracks: localTracks
+        connect(token).then(room => {
+            console.log(`Successfully joined a Room: ${room}`);
+
+            const localParticipant = room.localParticipant;
+            console.log(`Connected to the Room as LocalParticipant "${localParticipant}"`);
+            
+            // Log any Participants already connected to the Room
+            room.participants.forEach(participant => {
+              console.log(`Participant "${participant}" is connected to the Room`);
             });
-        }).then(room => {
-            console.log(`Connected to Room: ${room.name}`);
-            createLocalVideoTrack().then(track => {
-                const localMediaContainer: any = document.getElementById('local-media');
-                localMediaContainer.appendChild(track.attach());
+            
+            // Log new Participants as they connect to the Room
+            room.once('participantConnected', participant => {
+              console.log(`Participant "${participant}" has connected to the Room`);
+
+
+              participant.tracks.forEach((publication:any) => {
+                if (publication.isSubscribed) {
+                  const track = publication.track;
+                  document.getElementById('remote-media')!.appendChild(track.attach());
+                }
+              });
+            
+              participant.on('trackSubscribed', (track:any) => {
+                document.getElementById('remote-media')!.appendChild(track.attach());
+              });
+
             });
+            
+            // Log Participants as they disconnect from the Room
+            room.once('participantDisconnected', participant => {
+              console.log(`Participant "${participant}" has disconnected from the Room`);
+            });
+
+
+
+
+
             room.on('participantConnected', participant => {
-                console.log(`Participant "${participant.identity}" connected`);
+                console.log(`Participant connected: ${participant.identity}`);
+              });
+              
+              room.on('participantDisconnected', participant => {
+                console.log(`Participant disconnected: ${participant.identity}`);
+              });
 
-                participant.tracks.forEach((publication: any) => {
-                    if (publication.isSubscribed) {
-                        const track = publication.track;
-                        document.getElementById('remote-media')!.appendChild(track.attach());
-                    }
-                });
 
-                participant.on('trackSubscribed', (track: any) => {
-                    console.log('trackSubscribed')
-                    console.log(document.getElementById('remote-media'))
-                    document.getElementById('remote-media')!.appendChild(track.attach());
-                });
 
-                const localParticipant = room.localParticipant;
-                console.log(`Connected to the Room as LocalParticipant "${localParticipant.identity}"`);
 
-                // Log any Participants already connected to the Room
-                room.participants.forEach(participant => {
-                    console.log(`Participant "${participant.identity}" is connected to the Room`);
-                });
 
-                // Log new Participants as they connect to the Room
-                room.once('participantConnected', participant => {
-                    console.log(`Participant "${participant.identity}" has connected to the Room`);
-                });
 
-                // Log Participants as they disconnect from the Room
-                room.once('participantDisconnected', participant => {
-                    console.log(`Participant "${participant.identity}" has disconnected from the Room`);
-                });
-            });
-        });
+
+
+
+
+
+          }, error => {
+            console.error(`Unable to connect to Room: ${error.message}`);
+          });
     }
     useEffect(() => {
         connector(token);
