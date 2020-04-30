@@ -29,12 +29,14 @@ const VideoCall: React.FC<VideoCallProps> = ({token}) => {
                 participant.tracks.forEach((publication: any) => {
                     if (publication.isSubscribed) {
                         const track = publication.track;
-                        document.getElementById('remote-media-div')!.appendChild(track.attach());
+                        document.getElementById('remote-media')!.appendChild(track.attach());
                     }
                 });
 
                 participant.on('trackSubscribed', (track: any) => {
-                    document.getElementById('remote-media-div')!.appendChild(track.attach());
+                    console.log('trackSubscribed')
+                    console.log(document.getElementById('remote-media'))
+                    document.getElementById('remote-media')!.appendChild(track.attach());
                 });
 
                 const localParticipant = room.localParticipant;
@@ -63,7 +65,7 @@ const VideoCall: React.FC<VideoCallProps> = ({token}) => {
     return (
         <div className={`${styles.videoCall}`}>
             <div className={`${styles.local}`} id="local-media"></div>
-            <div className={`${styles.remote}`} id="remote-media-div"></div>
+            <div className={`${styles.remote}`} id="remote-media"></div>
         </div>
     )
 }

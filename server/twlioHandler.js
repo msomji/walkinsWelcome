@@ -6,7 +6,7 @@ const VideoGrant = AccessToken.VideoGrant;
 module.exports.getTwilioVideoToken = (event, context, callback) => {
     // Create Video Grant
     const videoGrant = new VideoGrant({
-        room: 'cool room',
+        room: 'room-name',
     });
 
     // containing the grant we just created
@@ -17,10 +17,10 @@ module.exports.getTwilioVideoToken = (event, context, callback) => {
     token.identity = event.queryStringParameters.identity;
 
     // console.log(token.toJwt());
-    callback(null, headers: {
+    callback(null,  {headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
-      }, { body: JSON.stringify({ token: token.toJwt() }) });
+      }, body: JSON.stringify({ token: token.toJwt() }) });
 
 }
 
@@ -36,10 +36,10 @@ module.exports.sendTwilioWhatsAppText = (event, context, callback) => {
             from: 'whatsapp:+14155238886',
             to: 'whatsapp:+16148937476'
         })
-        .then(message => callback(null, headers: {
+        .then(message => callback(null, {headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Credentials': true,
-          },{ body: "OK" }))
+          }, body: "OK" }))
         .done();
 
 }
