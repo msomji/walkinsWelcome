@@ -12,7 +12,11 @@ dbConnectAndExecute =(dbUrl, fn) => dbExecute(mongoose.connect(dbUrl), fn);
 
 const createErrorResponse = (statusCode, message) => ({
   statusCode: statusCode || 501,
-  headers: { 'Content-Type': 'text/plain' },
+  headers: { 'Content-Type': 'text/plain',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true,
+
+},
   body: message || 'Incorrect id',
 });
 
@@ -25,7 +29,10 @@ module.exports.patientsById = (event, context, callback) => {
   dbConnectAndExecute(mongoString, () => (
     PatientModel 
       .find({ _id: event.pathParameters.id })
-      .then(patient => callback(null, { statusCode: 200, body: JSON.stringify(patient) }))
+      .then(patient => callback(null, { statusCode: 200, headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },body: JSON.stringify(patient) }))
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ));
 };
@@ -40,7 +47,10 @@ module.exports.patientsByRoomId = (event, context, callback) => {
     PatientModel 
       .find({ roomId: event.pathParameters.id })
       .sort({ createdTime: 'asc' })
-      .then(patients => callback(null, { statusCode: 200, body: JSON.stringify(patients) }))
+      .then(patients => callback(null, { statusCode: 200, headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },body: JSON.stringify(patients) }))
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ));
 };
@@ -75,7 +85,10 @@ module.exports.deletePatient = (event, context, callback) => {
   dbConnectAndExecute(mongoString, () => (
     PatientModel
       .remove({ _id: event.pathParameters.id })
-      .then(() => callback(null, { statusCode: 200, body: JSON.stringify('Ok') }))
+      .then(() => callback(null, { statusCode: 200, headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },body: JSON.stringify('Ok') }))
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ));
 };

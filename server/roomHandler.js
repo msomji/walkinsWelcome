@@ -12,7 +12,9 @@ dbConnectAndExecute =(dbUrl, fn) => dbExecute(mongoose.connect(dbUrl), fn);
 
 const createErrorResponse = (statusCode, message) => ({
   statusCode: statusCode || 501,
-  headers: { 'Content-Type': 'text/plain' },
+  headers: { 'Content-Type': 'text/plain',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Credentials': true, },
   body: message || 'Incorrect id',
 });
 
@@ -20,7 +22,10 @@ module.exports.allRooms = (event, context, callback) => {
   dbConnectAndExecute(mongoString, () => (
     RoomModel 
       .find({})
-      .then(patient => callback(null, { statusCode: 200, body: JSON.stringify(patient) }))
+      .then(patient => callback(null, { statusCode: 200,  headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },body: JSON.stringify(patient) }))
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ));
 };
@@ -33,7 +38,10 @@ module.exports.roomById = (event, context, callback) => {
   dbConnectAndExecute(mongoString, () => (
     RoomModel 
       .find({ _id: event.pathParameters.id })
-      .then(patient => callback(null, { statusCode: 200, body: JSON.stringify(patient) }))
+      .then(patient => callback(null, { statusCode: 200,  headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },body: JSON.stringify(patient) }))
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ));
 };
@@ -51,7 +59,10 @@ module.exports.createRoom = (event, context, callback) => {
         .save()
         .then(() => callback(null, {
           statusCode: 200,
-          body: JSON.stringify({ id: room.id }),
+           headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },body: JSON.stringify({ id: room.id }),
         }))
         .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
     ));
@@ -66,7 +77,10 @@ module.exports.roomBylanguage = (event, context, callback) => {
   dbConnectAndExecute(mongoString, () => (
     RoomModel 
       .find({ languages: event.pathParameters.language })
-      .then(rooms => callback(null, { statusCode: 200, body: JSON.stringify(rooms)}))
+      .then(rooms => callback(null, { statusCode: 200,  headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },body: JSON.stringify(rooms)}))
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ));
 };
@@ -80,7 +94,10 @@ module.exports.roomByHost = (event, context, callback) => {
   dbConnectAndExecute(mongoString, () => (
     RoomModel 
       .find({ hostId: event.pathParameters.id })
-      .then(rooms => callback(null, { statusCode: 200, body: JSON.stringify(rooms) }))
+      .then(rooms => callback(null, { statusCode: 200,  headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },body: JSON.stringify(rooms) }))
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ));
 };
@@ -94,7 +111,10 @@ module.exports.deleteRoom = (event, context, callback) => {
   dbConnectAndExecute(mongoString, () => (
     RoomModel
       .remove({ _id: event.pathParameters.id })
-      .then(() => callback(null, { statusCode: 200, body: JSON.stringify('Ok') }))
+      .then(() => callback(null, { statusCode: 200,  headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+    },body: JSON.stringify('Ok') }))
       .catch(err => callback(null, createErrorResponse(err.statusCode, err.message)))
   ));
 };
