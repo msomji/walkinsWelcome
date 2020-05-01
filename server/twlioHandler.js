@@ -35,8 +35,7 @@ module.exports.getTwilioVideoTokenForRoomAndWithNameForPatient = (event, context
             .then(patients => {
                 if (patients.length !== 0) {
                     let name = patients[0].name
-                    console.log("THAT PATIENT")
-                    console.log(patients[0])
+                    let patientId = patients[0]._id
                     const videoGrant = new VideoGrant({ room: roomId });
                     // containing the grant we just created
                     const token = new AccessToken(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_VIDEO_API_KEY, process.env.TWILIO_VIDEO_API_SECRET);
@@ -62,7 +61,7 @@ module.exports.getTwilioVideoTokenForRoomAndWithNameForPatient = (event, context
                                 headers: {
                                     'Access-Control-Allow-Origin': '*',
                                     'Access-Control-Allow-Credentials': true,
-                                }, body: "OK"
+                                }, body:  JSON.stringify(patients[0])
                             })
                         })
                         .done();

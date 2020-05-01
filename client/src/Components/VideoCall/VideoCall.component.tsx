@@ -9,7 +9,15 @@ export interface VideoCallProps {
 const VideoCall: React.FC<VideoCallProps> = ({ token }) => {
 
     const connector = (token: string) => {
-        connect(token).then(room => {
+        createLocalTracks({
+            audio: true,
+            video: { width: 350, height: 350 },
+          }).then(localTracks => {
+            return connect(token, {
+              name: 'my-room-name',
+              tracks: localTracks,
+            });
+          }).then(room => {
             console.log(`Successfully joined a Room: ${room}`);
             createLocalVideoTrack().then(track => {
                 const localMediaContainer = document.getElementById('local-media');
@@ -67,10 +75,11 @@ const VideoCall: React.FC<VideoCallProps> = ({ token }) => {
     }, [token])
     return (
         <div className={`${styles.videoCall}`}>
-            <div className={`${styles.local}`} id="local-media"></div>
-            <div className={`${styles.remote}`} id="remote-media-div"></div>
-
-        <p>disconnect</p>
+            <div className={`${styles.container}`}>
+                <div className={`${styles.local}`} id="local-media"></div>
+                <div className={`${styles.remote}`} id="remote-media-div"></div>
+            </div>
+            <button className={`${styles.button}`} type="submit">Disconnect</button>
         </div>
     )
 }

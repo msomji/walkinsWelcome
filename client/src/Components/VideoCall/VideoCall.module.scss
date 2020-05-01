@@ -1,12 +1,41 @@
 @import '../../variables.scss';
 .videoCall {
+    // border: 1px solid black;
     height: 50vh;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    
+}
+.container {
+    display: flex;
+    flex-direction: row;
 }
 .local {
-    width: 40rem;
+    border-radius: 5px;
+    // border: 1px solid black;
+    // 414/310
+    width: 30rem;
+    margin: 4px;
+    max-height: 30rem; //remove 
 }
 .remote {
-    width: 40rem;
+    margin: 4px;
+    border-radius: 5px;
+    // border: 1px solid black;
+    max-height: 30rem; //remove 
+    width: 30rem;
+}
+.button {
+    display: flex;
+    margin: 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $primary-background;
+    height: 2.6rem;
+    background-color: #2E4A56;
+    border-color: #2E4A56;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    margin: 5px;
 }

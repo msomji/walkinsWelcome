@@ -141,7 +141,7 @@ const Lobby: React.FC<LobbyProps> = ({ user, roomState, tokenState }) => {
       imageUrl={room.imageUrl}
       speciality={room.speciality || "General Medicine"}
       location={room.location || "USA"}
-      patientsInLine={3}
+      // patientsInLine={3}
       callNextPatient={callNextPatient(room._id, room.hostName)}
       onGetInLine={onGetInLine(room._id)}
       deleteRoom={onDeleteRoom(room.hostId, room._id)} />)
@@ -160,7 +160,11 @@ const Lobby: React.FC<LobbyProps> = ({ user, roomState, tokenState }) => {
             <h1 className="is-primary is-size-2 has-text-weight-bold has-text-centered">Consultation Room</h1>
             <span onClick={onConsultModalClose} className="close">&times;</span>
           </div>
-          {tokenState.tokenLoaded === true && <VideoCall  token={tokenState.token}/>}
+          {/* <VideoCall  token={"tokenState.token"}/> */}
+          {tokenState.tokenLoaded ? <VideoCall  token={tokenState.token}/>:
+           <div className={`${styles.loadingRoom}`}>
+             <h2 className="is-primary is-size-4 has-text-weight-medium has-text-centered">Loading...</h2>
+             </div>}
 
         </div>
       </div>

@@ -7,17 +7,17 @@ export interface RoomComponentProps {
     imageUrl: string;
     speciality: string;
     location: string;
-    patientsInLine: number;
+    // patientsInLine: number;
     onGetInLine: (e: any) => void;
     callNextPatient: (e: any) => void;
     deleteRoom: (e: any) => void;
 }
 
-const RoomComponent  : React.FC<RoomComponentProps> = ({currentUserIsHost,callNextPatient, name, imageUrl, speciality, location, patientsInLine, onGetInLine, deleteRoom }) => {
+const RoomComponent  : React.FC<RoomComponentProps> = ({currentUserIsHost,callNextPatient, name, imageUrl, speciality, location, onGetInLine, deleteRoom }) => {
 
     return (
         <div className={`${styles.room}`}>
-            {currentUserIsHost ? <span onClick={deleteRoom}>Close</span> : <span/>}
+            {currentUserIsHost ? <span onClick={deleteRoom}>&times;</span> : <span/>}
             <img src={imageUrl} alt="host profile"/>
             <h1>{name}</h1>
             <h2>{speciality}</h2>
@@ -26,7 +26,7 @@ const RoomComponent  : React.FC<RoomComponentProps> = ({currentUserIsHost,callNe
             {currentUserIsHost ? <button onClick={callNextPatient}>Call Next Patient</button> :
             <button onClick={onGetInLine}>Get In Line</button>
             }
-            <p>There are {patientsInLine} patients in line</p>
+            {/* <p>There are {patientsInLine} patients in line</p> */}
         </div>
     )
 }
