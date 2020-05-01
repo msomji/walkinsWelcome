@@ -1,4 +1,10 @@
-# Walkins Welcome (Dev.to/Twlio hackathon)
+# Walkins Welcome [Demo Link](https://walkings-welcome.netlify.app/)  [![Netlify Status](https://api.netlify.com/api/v1/badges/413491e8-26a8-42c7-892b-c4d3be80ff8a/deploy-status)](https://app.netlify.com/sites/walkings-welcome/deploys)
+
+
+## [Dev.to](https://dev.to/)/[Twilio](https://www.twilio.com/) Online Hackathon  
+
+ 
+ 
 
 This application is a proof of concept of providing professional care to people in need during social distancing. 
 - The application allows professionals, to login in via their google account and create lobbies for their patients. 
@@ -15,12 +21,14 @@ The long term goal would be to make such a service available to those in under d
 
 ## Technologies used:
     1. React/Redux (client)
-    2. ServerlessJs (server)
-    3. Mlab (Mongo Database)
-    4. Google Auth API
-    5. Twilio Video Api
-    6. Twilio SMS API
-    7. Figma 
+    2. Netlify client deployment
+    3. ServerlessJs (server)
+    4. AWS Lambda backend deployments
+    5. Mlab (Mongo Database)
+    6. Google Auth API
+    7. Twilio Video Api
+    8. Twilio SMS API
+    9. Figma 
 
 
 ## Getting started
