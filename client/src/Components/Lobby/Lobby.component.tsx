@@ -7,11 +7,17 @@ import { UserState } from '../../store/user/userReducer'
 import RoomComponent from '../Room/Room.component'
 import { Patient } from '../../store/Patient/PatientReducer'
 import { getInLine } from '../../store/Patient/PatientActions'
+import { useHistory } from 'react-router'
+import { getVideoToken, clearVideoToken } from '../../store/VideoRoom/VideoTokenActions'
+import VideoCall from '../VideoCall/VideoCall.component'
+import { TokenState } from '../../store/VideoRoom/TokenReducer'
 
 
 export interface LobbyProps {
   roomState: RoomState
-  user: UserState
+  user: UserState,
+  tokenState: TokenState
+
 }
 
 const defaultRoom = {
@@ -29,10 +35,11 @@ const defaultPatient = {
   description: ''
 }
 
-const Lobby: React.FC<LobbyProps> = ({ user, roomState }) => {
+const Lobby: React.FC<LobbyProps> = ({ user, roomState, tokenState }) => {
   const dispatch = useDispatch();
   const [canCreateRoom, setcanCreateRoom] = useState(true)
   const [hideCreateRoomForm, sethideCreateRoomForm] = useState(true)
+  const [hideSeeNextPatient, setHideSeeNextPatient] = useState(true)
   
   const [hideGetInLineForm, setHideGetInLineForm] = useState(true)
   
@@ -48,13 +55,16 @@ const Lobby: React.FC<LobbyProps> = ({ user, roomState }) => {
     sethideCreateRoomForm(!hideCreateRoomForm)
 
   }
+  const onConsultModalClose = (e:any) => {
+    dispatch(clearVideoToken());
+    setHideSeeNextPatient(true);
+    // update number of patients 
+  }
   const callNextPatient = (roomId?:string, hostName?: string) => (e:any) => {
     e.preventDefault();
     if(roomId !== undefined && hostName !== undefined) {
-      // get auth token with room name and host name
-      //route to video page
-      // generate auth token for patient
-      // sent patient text with link + auth param
+        dispatch(getVideoToken({roomId, hostName}));
+        setHideSeeNextPatient(false)
     }
   }
   const onGetInLine = (roomId?:string) => (e:any) => {
@@ -141,6 +151,18 @@ const Lobby: React.FC<LobbyProps> = ({ user, roomState }) => {
       <div className={`${styles.lobbyHeader}`}>
         <h1 className="is-primary is-size-2 has-text-weight-bold has-text-centered">Lobby</h1>
         {canCreateRoom && <button className={`${styles.createRoom}`} onClick={onClick}>New Room</button>}
+      </div>
+
+      {/* host video room modal */}
+      <div className={`${styles.modal} ${hideSeeNextPatient && styles.hidden}`}>
+        <div className={`${styles.modalContent}`}>
+          <div className={`${styles.modalHeader}`}>
+            <h1 className="is-primary is-size-2 has-text-weight-bold has-text-centered">Consultation Room</h1>
+            <span onClick={onConsultModalClose} className="close">&times;</span>
+          </div>
+          {tokenState.tokenLoaded === true && <VideoCall  token={tokenState.token}/>}
+
+        </div>
       </div>
       {/* host room modal */}
       <div className={`${styles.modal} ${hideCreateRoomForm && styles.hidden}`}>

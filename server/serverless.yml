@@ -49,10 +49,12 @@ provider:
     DB_USER: ${file(./config.json):DB_USER}
     DB_PASSWORD: ${file(./config.json):DB_PASSWORD}
     TWILIO_ACCOUNT_SID: ${file(./config.json):TWILIO_ACCOUNT_SID}
-    TWILIO_VIDEO_API_KEY : ${file(./config.json):TWILIO_VIDEO_API_KEY}
+    TWILIO_MESSEGING_SID_KEY: ${file(./config.json):TWILIO_MESSEGING_SID_KEY}
+    TWILIO_MESSAGING_AUTH_TOKEN: ${file(./config.json):TWILIO_MESSAGING_AUTH_TOKEN}
+    TWILIO_PHONE_NUMBER: ${file(./config.json):TWILIO_PHONE_NUMBER}
+    TWILIO_VIDEO_API_KEY: ${file(./config.json):TWILIO_VIDEO_API_KEY}
     TWILIO_VIDEO_API_SECRET: ${file(./config.json):TWILIO_VIDEO_API_SECRET}
-    TWILIO_WHATSAPP_API_AUTH_TOKEN: ${file(./config.json):TWILIO_WHATSAPP_API_AUTH_TOKEN}
-    
+    CLIENT_URL: ${file(./config.json):CLIENT_URL}
 
 # you can add packaging information here
 #package:
@@ -64,7 +66,45 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
+  getTwilioVideoTokenForNextPatientInRoom:
+    handler: twlioHandler.getTwilioVideoTokenForRoomAndWithNameForPatient
+    events:
+      - http:
+          path: video-token/patients/roomId/{roomId}
+          method: get
+          request:
+            parameters:
+              querystrings:
+                identity: true
+          cors:
+            origin: '*'
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
   getTwilioVideoToken:
+    handler: twlioHandler.getTwilioVideoTokenForRoomAndWithName
+    events:
+      - http:
+          path: video-token/roomId/{roomId}/name/{name}
+          method: get
+          request:
+            parameters:
+              querystrings:
+                identity: true
+          cors:
+            origin: '*'
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+  getTwilioVideoTokenManually:
     handler: twlioHandler.getTwilioVideoToken
     events:
       - http:

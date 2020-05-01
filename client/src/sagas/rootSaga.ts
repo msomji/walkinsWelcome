@@ -5,6 +5,7 @@ import { createRoomSaga } from './rooms/createRoomSaga'
 import { fetchAllRooms } from './rooms/fetchAllRoomsSaga'
 import { fetchRoomsByHostIdSaga } from './user/fetchRoomsByHostIdSaga'
 import { getInLineSaga } from './patients/getInLineSaga'
+import { setUpVideoRoomSaga } from './videoRooms/setUpVideoRoomSaga'
 
 
 export default function* rootSaga() {
@@ -16,6 +17,7 @@ export default function* rootSaga() {
 
     fetchRoomsByHostIdSaga(),
 
-    getInLineSaga()
+    getInLineSaga(),
+    setUpVideoRoomSaga(),
   ])
 }

@@ -50,33 +50,14 @@ const VideoCall: React.FC<VideoCallProps> = ({ token }) => {
                 });
             });
 
-
-
-
-            room.on('participantConnected', participant => {
-                console.log(`Participant connected: ${participant.identity}`);
-            });
-
             room.on('participantDisconnected', participant => {
                 console.log(`Participant disconnected: ${participant.identity}`);
                 // Detach the local media elements
                 room.localParticipant.tracks.forEach(publication => {
                     const attachedElements = publication.track;
                     console.log(attachedElements);
-                    // attachedElements.forEach((element:any) => element.remove());
                 });
             });
-
-
-
-
-
-
-
-
-
-
-
         }, error => {
             console.error(`Unable to connect to Room: ${error.message}`);
         });
@@ -88,6 +69,8 @@ const VideoCall: React.FC<VideoCallProps> = ({ token }) => {
         <div className={`${styles.videoCall}`}>
             <div className={`${styles.local}`} id="local-media"></div>
             <div className={`${styles.remote}`} id="remote-media-div"></div>
+
+        <p>disconnect</p>
         </div>
     )
 }

@@ -13,7 +13,7 @@ export interface RoomComponentProps {
     deleteRoom: (e: any) => void;
 }
 
-const RoomComponent  : React.FC<RoomComponentProps> = ({currentUserIsHost, name, imageUrl, speciality, location, patientsInLine, onGetInLine, deleteRoom }) => {
+const RoomComponent  : React.FC<RoomComponentProps> = ({currentUserIsHost,callNextPatient, name, imageUrl, speciality, location, patientsInLine, onGetInLine, deleteRoom }) => {
 
     return (
         <div className={`${styles.room}`}>
@@ -23,7 +23,7 @@ const RoomComponent  : React.FC<RoomComponentProps> = ({currentUserIsHost, name,
             <h2>{speciality}</h2>
             <h3>{location}</h3>
             
-            {currentUserIsHost ? <button onClick={onGetInLine}>Call Next Patient</button> :
+            {currentUserIsHost ? <button onClick={callNextPatient}>Call Next Patient</button> :
             <button onClick={onGetInLine}>Get In Line</button>
             }
             <p>There are {patientsInLine} patients in line</p>

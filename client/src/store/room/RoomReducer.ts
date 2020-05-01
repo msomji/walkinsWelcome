@@ -46,7 +46,7 @@ export const RoomReducer = (state = initialState, action: RoomActions) => {
         case FETCH_ALL_ROOMS_SUCCESS: {
             return {
                 ...state,
-                allRooms: [...state.allRooms, ...action.payload],
+                allRooms: [...action.payload],
             }
         }
         default: return {...state}
