@@ -1,7 +1,6 @@
 import { put, takeLatest } from "redux-saga/effects";
 import { GET_VIDEO_TOKEN, GetVideoToken, getVideoTokenFailed, getVideoTokenSuccess } from "../../store/VideoRoom/VideoTokenActions";
 import { getVideoAuthToken, getVideoAuthTokenForPatient } from "../../Services/VideoServices";
-import { Patient } from "../../store/Patient/PatientReducer";
 import { deletePatient } from "../../store/Patient/PatientActions";
 
 

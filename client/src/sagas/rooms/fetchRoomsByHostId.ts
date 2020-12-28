@@ -1,6 +1,5 @@
-import {  FETCH_ROOMS_BY_HOST_ID, FetchRoomsByHostId, fetchRoomsByHostIdSuccess, fetchRoomsByHostIdFailed } from "../../store/room/RoomActions";
-import { fetchRoomByHostId } from "../../Services/RoomService";
-import { put, takeLatest } from "redux-saga/effects";
+import {  FETCH_ROOMS_BY_HOST_ID, FetchRoomsByHostId } from "../../store/room/RoomActions";
+import { takeLatest } from "redux-saga/effects";
 
 function* workerSaga(action: FetchRoomsByHostId) {
     // try {

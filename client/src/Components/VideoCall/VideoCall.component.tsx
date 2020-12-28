@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { connect, createLocalVideoTrack, createLocalTracks } from "twilio-video";
 import styles from './VideoCall.module.scss';
 

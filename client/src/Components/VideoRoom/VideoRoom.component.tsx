@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../Footer/Footer';
 import VideoCall from '../VideoCall/VideoCall.component';
-import { useParams, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);

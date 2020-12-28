@@ -1,6 +1,6 @@
 import { put, takeLatest } from "redux-saga/effects";
-import { GET_IN_LINE, GetInLine, getInLineSuccess, getInLineFailed, DELETE_PATIENT, PatientActions, DeletePatient, deletePatientSuccess, deletePatientFailed } from "../../store/Patient/PatientActions";
-import { createPatient, deletePatient } from "../../Services/PatientService";
+import {DELETE_PATIENT, DeletePatient, deletePatientSuccess, deletePatientFailed } from "../../store/Patient/PatientActions";
+import { deletePatient } from "../../Services/PatientService";
 
 function* workerSaga(action: DeletePatient) {
     try {
