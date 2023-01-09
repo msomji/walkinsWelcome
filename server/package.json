@@ -13,6 +13,6 @@
   "author": "Quentin Homareau <quentin.homareau@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "serverless-offline": "^6.1.4"
+    "serverless-offline": "^12.0.4"
   }
 }
